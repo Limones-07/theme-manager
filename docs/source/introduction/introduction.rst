@@ -23,6 +23,10 @@ allowing you to manage every (configured) applications' theme and style
 using a single tool. It can apply a style globally as well as modify 
 the style of a single application specifically.
 
+.. note:: 
+    It doesn't have a GUI (for now). However, you can create an application
+    that uses `theme-manager` as a backend (eg. a widget using Eww [#f1]_).
+
 How does it do that?
 --------------------
 
@@ -48,3 +52,8 @@ TODO
 * Configure each application individually.
 * Create a configuration file interactively.
 * Basically everything.
+
+.. rubric:: Footnotes
+.. [#f1] `Eww`_ (or ElKowars Wacky Widgets): `https://github.com/elkowar/eww <Eww>`_
+
+.. _Eww: https://github.com/elkowar/eww

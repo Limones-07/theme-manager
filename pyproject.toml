@@ -7,7 +7,7 @@ name = "theme-manager"
 version = "1.0a"
 dependencies = []
 requires-python = ">=3.11"
-description = "A command-line tool for managing themes in your Linux installation based on each theme's configuration."
+description = "A command-line tool for managing themes in your Linux installation."
 readme = "README.rst"
 license.text = "MIT License"
 authors = [

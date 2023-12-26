@@ -37,7 +37,7 @@ def parse_request() -> list:
 def _build_parser() -> argparse.ArgumentParser:
     """Builds the command-line parser."""
 
-    # parser = argparse.ArgumentParser(description="A command-line tool for managing themes in your Linux installation based on each theme's configuration.")
+    # parser = argparse.ArgumentParser(description="A command-line tool for managing themes in your Linux installation.")
     parser = argparse.ArgumentParser()
     
     option_group = parser.add_mutually_exclusive_group(required=True)

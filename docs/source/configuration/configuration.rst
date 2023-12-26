@@ -61,7 +61,7 @@ Configuring themes
 
 To configure a theme, you need a `TOML` or a `JSON` file. The recommended way for manually configuration
 is to write a `TOML` file just because it's easier, but there is no other difference between the two aside
-from the syntax. Leave the `JSON` files for automatically generated configurations and for packages.
+from the syntax. Leave the `JSON` files for automatically generated configurations.
 
 Using TOML files
 ^^^^^^^^^^^^^^^^

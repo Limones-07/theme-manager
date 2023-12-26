@@ -1,0 +1,24 @@
+[id]
+desktop_entry = "/usr/share/applications/code.desktop"
+name = "Visual Studio Code"
+
+
+[[installation_check]]
+type = "which"
+command = "code"
+
+
+[[apply_procedures]]
+id = "user_config_theme"
+
+[[apply_procedures.requires]]
+id = "theme_name"
+type = "string"
+
+[apply_procedures.function]
+type = "json_entry"
+file = "~/.config/Code/User/settings.json"
+json_entry = [
+    "workbench.colorTheme"
+]
+value = "%theme_name"

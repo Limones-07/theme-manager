@@ -68,40 +68,53 @@ This is how a generic `theme-manager` file tree should look like::
     └─...
 
 .. _examples_theme_configuration:
+.. highlight:: none
 
 Example: theme configuration
 ----------------------------
 
-This is how a theme configuration file may look like::
+This is how a theme configuration file may look like 
+(using the `Dracula theme`_ [#f1]_ as an example):
 
 `theme.toml`::
 
     name = "Dracula"
-
-    [[applications]]
-    [applications.id]
-    desktop_entry = null
-    name = "Xresources"
-
-    [[applications.installation_check]]
+    
+    
+    [[installation_check]]
+    required_by = "Xresources"
     type = "file_exists"
-    file = "%d/Xresources"
+    file = "%D/Xresources"
 
-    applications.application_args = []
+    [[installation_check]]
+    required_by = "Visual Studio Code"
+    type = "json_entry"
+    file = "~/.vscode/extensions/extensions.json"
+    json_entry = [
+        "?",
+        "identifier",
+        "id"
+    ]
+    value = "dracula-theme.theme-dracula"
+
 
     [[applications]]
-    [applications.id]
-    desktop_entry = "/usr/share/applications/code.desktop"
-    name = "Visual Studio Code"
+    id = "Xresources"
+    
+    [applications.procedure]
+    id = "merge"
+    file = "%D/Xresources"
 
-    [[applications.installation_check]]
-    type = ""
-    
-    
+    [[applications]]
+    id = "Visual Studio Code"
+
+    [applications.procedure]
+    id = "user_config_theme"
+    theme_name = "Dracula"
 
 An equivalent configuration written in `JSON` would look like this::
 
-    same situation as toml lol
+    sus
 
 .. _examples_application_configuration:
 
@@ -110,12 +123,38 @@ Example: application configuration
 
 This example is one of the default configuration shipped with the program.
 
-`dunno.json`::
-
-    IF I DIDN'T DO THE THEME, WHAT MAKES YOU THINK I MADE THE APPLICATION?????
-
-An equivalent configuration written in `TOML` would look like this::
+`vscode.toml`::
 
     [id]
-    desktop_entry = /usr/share/applications/code.desktop
+    desktop_entry = "/usr/share/applications/code.desktop"
     name = "Visual Studio Code"
+
+
+    [[installation_check]]
+    type = "which"
+    command = "code"
+
+
+    [[apply_procedures]]
+    id = "user_config_theme"
+
+    [[apply_procedures.requires]]
+    id = "theme_name"
+    type = "string"
+
+    [apply_procedures.function]
+    type = "json_entry"
+    file = "~/.config/Code/User/settings.json"
+    json_entry = [
+        "workbench.colorTheme"
+    ]
+    value = "%theme_name"
+
+An equivalent configuration written in `JSON` would look like this::
+
+    sus
+
+.. rubric:: Footnotes
+.. [#f1] `Dracula theme`_: (`https://draculatheme.com/ <Dracula theme>`_)
+
+.. _`Dracula theme`: https://draculatheme.com/

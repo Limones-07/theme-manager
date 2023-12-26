@@ -1,0 +1,56 @@
+[id]
+desktop_entry = false
+name = "Xresources"
+
+
+[[installation_check]]
+type = "which"
+command = "xrdb"
+
+
+[[apply_procedures]]
+id = "replace"
+
+[[apply_procedures.requires]]
+id = "file"
+type = "path"
+
+[apply_procedures.function]
+type = "shell"
+command = "xrdb"
+args = [
+    "%file"
+]
+
+
+[[apply_procedures]]
+id = "merge"
+
+[[apply_procedures.requires]]
+id = "file"
+type = "path"
+
+[apply_procedures.function]
+type = "shell"
+command = "xrdb"
+args = [
+    "-merge",
+    "%file"
+]
+
+
+[[apply_procedures]]
+id = "symlink"
+
+[[apply_procedures.requires]]
+id = "target"
+type = "path"
+
+[[apply_procedures.requires]]
+id = "source"
+type = "path"
+
+[apply_procedures.function]
+type = "create_symlink"
+source = "%source"
+target = "%target"
