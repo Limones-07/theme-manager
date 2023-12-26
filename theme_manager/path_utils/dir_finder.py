@@ -8,11 +8,11 @@ from .. import logging_utils
 _HOME_DIR = Path(os.path.expanduser('~'))
 
 def on_xdg_data(target: str) -> list[Path]:
-    """Looks for `target` on $XDG_DATA_DIRS and $XDG_DATA_HOME. """
+    """Looks for `target` on $XDG_DATA_DIRS and $XDG_CONFIG_HOME. """
     logger = logging_utils.get()
     
     xdg_combined = _get_xdg_data_dirs()
-    xdg_combined.append(_get_xdg_data_home())
+    xdg_combined.append(_get_xdg_config_home())
     logger.debug(f'Searching for {target} on {xdg_combined}.', __name__)
     
     ret_value = list()
@@ -31,10 +31,10 @@ def on_xdg_data(target: str) -> list[Path]:
     return ret_value
 
 
-def _get_xdg_data_home() -> Path:
-    default = Path(os.path.expanduser('~'), '.local', 'share')
-    return Path(os.getenv('XDG_DATA_HOME', 
-                          os.path.expanduser('~/.local/share')))
+def _get_xdg_config_home() -> Path:
+    default = Path(os.path.expanduser('~'), '.config')
+    return Path(os.getenv('XDG_CONFIG_HOME', 
+                          default))
 
 
 def _get_xdg_data_dirs() -> list[Path]:

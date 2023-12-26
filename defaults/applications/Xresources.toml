@@ -8,49 +8,49 @@ type = "which"
 command = "xrdb"
 
 
-[[apply_procedures]]
+[[enabling_procedures]]
 id = "replace"
 
-[[apply_procedures.requires]]
+[[enabling_procedures.requires]]
 id = "file"
 type = "path"
 
-[apply_procedures.function]
+[enabling_procedures.function]
 type = "shell"
 command = "xrdb"
 args = [
-    "%file"
+    "@file"
 ]
 
 
-[[apply_procedures]]
+[[enabling_procedures]]
 id = "merge"
 
-[[apply_procedures.requires]]
+[[enabling_procedures.requires]]
 id = "file"
 type = "path"
 
-[apply_procedures.function]
+[enabling_procedures.function]
 type = "shell"
 command = "xrdb"
 args = [
     "-merge",
-    "%file"
+    "@file"
 ]
 
 
-[[apply_procedures]]
+[[enabling_procedures]]
 id = "symlink"
 
-[[apply_procedures.requires]]
+[[enabling_procedures.requires]]
 id = "target"
 type = "path"
 
-[[apply_procedures.requires]]
+[[enabling_procedures.requires]]
 id = "source"
 type = "path"
 
-[apply_procedures.function]
+[enabling_procedures.function]
 type = "create_symlink"
-source = "%source"
-target = "%target"
+source = "@source"
+target = "@target"

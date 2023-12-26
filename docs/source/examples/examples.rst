@@ -13,10 +13,8 @@ Considering the default values for the XDG data directories::
     /
     ├─home
     │ ├─incredible-user
-    │ │ ├─.local
-    │ │ │ ├─share
-    │ │ │ │ ├─theme-manager
-    │ │ │ │ │ └─...
+    │ │ ├─.config
+    │ │ │ ├─theme-manager
     │ │ │ │ └─...
     │ │ │ └─...
     │ │ └─...
@@ -67,61 +65,16 @@ This is how a generic `theme-manager` file tree should look like::
     │ └─...
     └─...
 
-.. _examples_theme_configuration:
-.. highlight:: none
-
-Example: theme configuration
-----------------------------
-
-This is how a theme configuration file may look like 
-(using the `Dracula theme`_ [#f1]_ as an example):
-
-`theme.toml`::
-
-    name = "Dracula"
-    
-    
-    [[installation_check]]
-    required_by = "Xresources"
-    type = "file_exists"
-    file = "%D/Xresources"
-
-    [[installation_check]]
-    required_by = "Visual Studio Code"
-    type = "json_entry"
-    file = "~/.vscode/extensions/extensions.json"
-    json_entry = [
-        "?",
-        "identifier",
-        "id"
-    ]
-    value = "dracula-theme.theme-dracula"
-
-
-    [[applications]]
-    id = "Xresources"
-    
-    [applications.procedure]
-    id = "merge"
-    file = "%D/Xresources"
-
-    [[applications]]
-    id = "Visual Studio Code"
-
-    [applications.procedure]
-    id = "user_config_theme"
-    theme_name = "Dracula"
-
-An equivalent configuration written in `JSON` would look like this::
-
-    sus
 
 .. _examples_application_configuration:
+.. highlight:: none
 
 Example: application configuration
 ----------------------------------
 
-This example is one of the default configuration shipped with the program.
+.. _examples_application_configuration_application_toml:
+
+This example is one of the default configurations shipped with the program.
 
 `vscode.toml`::
 
@@ -135,26 +88,77 @@ This example is one of the default configuration shipped with the program.
     command = "code"
 
 
-    [[apply_procedures]]
+    [[enabling_procedures]]
     id = "user_config_theme"
 
-    [[apply_procedures.requires]]
+    [[enabling_procedures.requires]]
     id = "theme_name"
     type = "string"
 
-    [apply_procedures.function]
+    [enabling_procedures.function]
     type = "json_entry"
-    file = "~/.config/Code/User/settings.json"
+    file = "@H/.config/Code/User/settings.json"
     json_entry = [
         "workbench.colorTheme"
     ]
-    value = "%theme_name"
+    value = "@theme_name"
+
+An equivalent configuration written in `JSON` would look like this::
+
+    sus
+
+
+.. _examples_theme_configuration:
+
+Example: theme configuration
+----------------------------
+
+.. _examples_theme_configuration_theme_toml:
+
+This is how a theme configuration file written in `TOML` may look like
+(using a basic config for the `Dracula theme`_ as an example [#f1]_):
+
+`theme.toml`::
+
+    name = "Dracula"
+    
+    
+    [[installation_check]]
+    required_by = "Xresources"
+    type = "file_exists"
+    file = "@D/Xresources"
+
+    [[installation_check]]
+    required_by = "Visual Studio Code"
+    type = "json_entry"
+    file = "@H/.vscode/extensions/extensions.json"
+    json_entry = [
+        "?",
+        "identifier",
+        "id"
+    ]
+    value = "dracula-theme.theme-dracula"
+
+
+    [[applications]]
+    id = "Xresources"
+    
+    [applications.procedure]
+    id = "merge"
+    file = "@D/Xresources"
+
+    [[applications]]
+    id = "Visual Studio Code"
+
+    [applications.procedure]
+    id = "user_config_theme"
+    theme_name = "Dracula"
 
 An equivalent configuration written in `JSON` would look like this::
 
     sus
 
 .. rubric:: Footnotes
-.. [#f1] `Dracula theme`_: (`https://draculatheme.com/ <Dracula theme>`_)
+.. [#f1] `Dracula theme`_: (`https://draculatheme.com/ <Dracula theme>`_) 
 
 .. _`Dracula theme`: https://draculatheme.com/

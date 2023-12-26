@@ -4,11 +4,14 @@ Where to place directories and files
 ====================================
 
 `theme-manager` looks for same named directories on the folders specified by the 
-environment variables `$XDG_DATA_HOME` and `$XDG_DATA_DIRS` as defined by
+environment variables `$XDG_CONFIG_HOME` and `$XDG_DATA_DIRS` as defined by
 the `XDG Base Directory Specification`_ [#f1]_. If they are not defined, `theme-manager` 
-will look for its directories on `$HOME/.local/share`, `/usr/local/share` and `/usr/share`, 
+will look for its directories on `$HOME/.config`, `/usr/local/share` and `/usr/share`, 
 in this order. :ref:`This example <examples_root_directory_file_tree>` should help you understand 
-how the root file tree shoud look like.
+how the root file tree shoud look like. 
+
+User-made configuration (even if automatically generated) should be put at `$XDG_CONFIG_HOME` and 
+package-made configuration shoud be put at `$XDG_DATA_DIRS`.
 
 When `theme-manager` finds a directory it's searching, it looks for:
 
@@ -39,10 +42,11 @@ file tree shoud look like.
 
 .. note:: 
     The `TOML` and `JSON` documents should be written as defined by the `TOML Specification`_ [#f2]_ and the 
-    `ECMA-404 Standard`_ [#f3]_, in this order. 
+    `ECMA-404 Standard`_ [#f3]_ respectively. 
 
 .. note:: 
     The theme and application configuration can be done by a package. 
+
 
 .. rubric:: Footnotes
 .. [#f1] See the `XDG Base Directory Specification`_ 

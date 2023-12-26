@@ -8,17 +8,17 @@ type = "which"
 command = "code"
 
 
-[[apply_procedures]]
+[[enabling_procedures]]
 id = "user_config_theme"
 
-[[apply_procedures.requires]]
+[[enabling_procedures.requires]]
 id = "theme_name"
 type = "string"
 
-[apply_procedures.function]
+[enabling_procedures.function]
 type = "json_entry"
 file = "~/.config/Code/User/settings.json"
 json_entry = [
     "workbench.colorTheme"
 ]
-value = "%theme_name"
+value = "@theme_name"
