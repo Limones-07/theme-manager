@@ -117,7 +117,5 @@ This example is one of the default configuration shipped with the program.
 An equivalent configuration written in `TOML` would look like this::
 
     [id]
-    desktop_entry = null
+    desktop_entry = /usr/share/applications/code.desktop
     name = "Visual Studio Code"
-    
-    
