@@ -1,0 +1,5 @@
+.vscode
+.venv
+__pycache__
+theme_manager/docs/build
+theme_manager.egg-info

@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "theme-manager"
+version = "1.0a"
+dependencies = []
+requires-python = ">=3.11"
+description = "A command-line tool for managing themes in your Linux installation based on each theme's configuration."
+readme = "README.rst"
+license.text = "MIT License"
+authors = [
+    {name = "João Pedro Lima", email = "07limones@gmail.com"}
+]
+
+[project.optional-dependencies]
+docs = [
+    "sphinx",
+    "sphinxcontrib.autoprogram"
+]
+
+[project.urls]
+Repository = "https://github.com/Limones-07/theme-manager.git"
+
+[project.scripts]
+theme-manager = "theme_manager.cli_interface:main"
+
+[tool.setuptools.packages.find]
+include = ["theme_manager*"]
+exclude = ["theme_manager.tests*"]

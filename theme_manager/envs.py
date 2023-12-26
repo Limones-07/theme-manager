@@ -1,0 +1,6 @@
+DEFAULT_VERBOSITY = 0
+
+THEME_CONFIG_FILE = 'theme.json'
+STATE_FILE = 'state.json'
+
+EX_USAGE = 64
