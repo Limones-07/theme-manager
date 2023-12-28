@@ -3,7 +3,7 @@
 Examples
 ========
 
-.. _examples_root_directory_file_tree:
+.. _example_root_directory_file_tree:
 
 Example: root directory file tree
 ---------------------------------
@@ -33,7 +33,7 @@ Considering the default values for the XDG data directories::
     │ └─...
     └─...
 
-.. _examples_theme_manager_file_tree:
+.. _example_theme_manager_file_tree:
 
 Example: `theme-manager` file tree
 ----------------------------------
@@ -66,54 +66,85 @@ This is how a generic `theme-manager` file tree should look like::
     └─...
 
 
-.. _examples_application_configuration:
 .. highlight:: none
+
+.. _example_application_configuration:
 
 Example: application configuration
 ----------------------------------
 
-.. _examples_application_configuration_application_toml:
-
 This example is one of the default configurations shipped with the program.
 
-`vscode.toml`::
+`Xresources.toml`::
 
     [id]
-    desktop_entry = "/usr/share/applications/code.desktop"
-    name = "Visual Studio Code"
+    desktop_entry = false
+    name = "Xresources"
 
 
-    [[installation_check]]
-    type = "which"
-    command = "code"
+    [[check_procedures]]
+    type = "command_exists"
+    command = "xrdb"
 
 
     [[enabling_procedures]]
-    id = "user_config_theme"
+    id = "replace"
 
     [[enabling_procedures.requires]]
-    id = "theme_name"
-    type = "string"
+    id = "file"
+    type = "path"
 
     [enabling_procedures.function]
-    type = "json_entry"
-    file = "@H/.config/Code/User/settings.json"
-    json_entry = [
-        "workbench.colorTheme"
+    type = "shell"
+    command = "xrdb"
+    args = [
+        "@file"
     ]
-    value = "@theme_name"
+
+
+    [[enabling_procedures]]
+    id = "merge"
+
+    [[enabling_procedures.requires]]
+    id = "file"
+    type = "path"
+
+    [enabling_procedures.function]
+    type = "shell"
+    command = "xrdb"
+    args = [
+        "-merge",
+        "@file"
+    ]
+
+
+    [[enabling_procedures]]
+    id = "symlink"
+
+    [[enabling_procedures.requires]]
+    id = "target"
+    type = "path"
+
+    [[enabling_procedures.requires]]
+    id = "directory"
+    type = "path"
+
+    [enabling_procedures.function]
+    type = "create_symlink"
+    target = "@target"
+    directory = "@directory"
 
 An equivalent configuration written in `JSON` would look like this::
 
     sus
 
+If you want to see more examples, check the default configurations shipped 
+with the program.
 
-.. _examples_theme_configuration:
+.. _example_theme_configuration:
 
 Example: theme configuration
 ----------------------------
-
-.. _examples_theme_configuration_theme_toml:
 
 This is how a theme configuration file written in `TOML` may look like
 (using a basic config for the `Dracula theme`_ as an example [#f1]_):
@@ -123,16 +154,16 @@ This is how a theme configuration file written in `TOML` may look like
     name = "Dracula"
     
     
-    [[installation_check]]
+    [[check_procedures]]
     required_by = "Xresources"
     type = "file_exists"
     file = "@D/Xresources"
 
-    [[installation_check]]
+    [[check_procedures]]
     required_by = "Visual Studio Code"
     type = "json_entry"
     file = "@H/.vscode/extensions/extensions.json"
-    json_entry = [
+    entry = [
         "?",
         "identifier",
         "id"

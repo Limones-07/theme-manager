@@ -5,13 +5,19 @@ Where to place directories and files
 
 `theme-manager` looks for same named directories on the folders specified by the 
 environment variables `$XDG_CONFIG_HOME` and `$XDG_DATA_DIRS` as defined by
-the `XDG Base Directory Specification`_ [#f1]_. If they are not defined, `theme-manager` 
-will look for its directories on `$HOME/.config`, `/usr/local/share` and `/usr/share`, 
-in this order. :ref:`This example <examples_root_directory_file_tree>` should help you understand 
-how the root file tree shoud look like. 
+the `XDG Base Directory Specification`_ [#f1]_. If the variables are not defined, 
+`theme-manager` will look for its directories on `$HOME/.config`, `/usr/local/share` 
+and `/usr/share`, in this order. 
 
-User-made configuration (even if automatically generated) should be put at `$XDG_CONFIG_HOME` and 
-package-made configuration shoud be put at `$XDG_DATA_DIRS`.
+This order is also the order of priority, so, for example, if two configuration files 
+are found with the **same name** at `$HOME/.config` and at `/usr/local/share`, 
+the first one overrides the second. 
+
+User-made configuration (even if automatically generated) should be stored in 
+`$XDG_CONFIG_HOME` and package-made configuration should be stored in `$XDG_DATA_DIRS`.
+
+:ref:`This example <example_root_directory_file_tree>` should help you understand 
+how the root file tree shoud look like. 
 
 When `theme-manager` finds a directory it's searching, it looks for:
 
@@ -37,16 +43,12 @@ applications/
     See the :ref:`application configuration <configuration_applications_start>`
     section for more details and how to write these configurations.
 
-:ref:`This example <examples_theme_manager_file_tree>` should help you understand how the `theme-manager`
+:ref:`This example <example_theme_manager_file_tree>` should help you understand how the `theme-manager`
 file tree shoud look like.
 
 .. note:: 
     The `TOML` and `JSON` documents should be written as defined by the `TOML Specification`_ [#f2]_ and the 
     `ECMA-404 Standard`_ [#f3]_ respectively. 
-
-.. note:: 
-    The theme and application configuration can be done by a package. 
-
 
 .. rubric:: Footnotes
 .. [#f1] See the `XDG Base Directory Specification`_ 

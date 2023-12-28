@@ -3,8 +3,8 @@ desktop_entry = "/usr/share/applications/code.desktop"
 name = "Visual Studio Code"
 
 
-[[installation_check]]
-type = "which"
+[[check_procedures]]
+type = "command_exists"
 command = "code"
 
 
@@ -18,7 +18,7 @@ type = "string"
 [enabling_procedures.function]
 type = "json_entry"
 file = "~/.config/Code/User/settings.json"
-json_entry = [
+entry = [
     "workbench.colorTheme"
 ]
 value = "@theme_name"

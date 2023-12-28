@@ -1,22 +1,29 @@
-.. _configuration_start:
+.. _configuration_configuration_start:
 
 Configuration
 =============
 
 For `theme-manager` to work properly, it needs to be able to verify if its themes are properly installed
-and enable them. To acomplish that, it uses each themes' configuration files to specify how these two things 
+and to enable them. To acomplish that, it uses each themes' configuration files to specify how these two things 
 should be done. It also needs to know how to modify some application-specific configuration files to apply 
 things like font styles and color schemes. 
 
-There are two major categories of `theme-manager` configuration files: applications configuration files and
-themes configuration files. 
+There are two major categories of `theme-manager` configuration files: 
+:ref:`applications configuration files <configuration_applications_start>` and
+:ref:`themes configuration files <configuration_themes_start>`.
 
 The first is used to tell `theme-manager` what to do when trying to modify a setting from a specific application. 
 For example, it specifies what is the file and `JSON` entry `theme-manager` needs to modify to mofidy the theme of 
-VS Code. These instructions are called `enabling procedures`.
+VS Code. These instructions are called `enabling procedures`. Some popular applications like 
 
 The second is used to specify which applications a theme supports and which procedure needs to be executed to enable
 itself.
+
+.. _configuration_configuration_check_procedures:
+
+As an error preventing method, both applications and themes need to have their installations verified. To do so,
+the configuration files must specify one or more :ref:`check procedures <configuration_check_procedures_start>` 
+to tell `theme-manager` how to verify if the themes and applications are actually installed before trying to do anything. 
 
 Be aware that inside the configuration documents, environment variables and the tilde (~) symbol are not interpreted 
 by `theme-manager` (they might be interpreted if the string goes through a shell at some point, but it isn't guaranteed
@@ -31,5 +38,6 @@ The following sections will teach you where to put these files and how to write 
     files
     applications
     themes
+    check_procedures
     references
     scripts

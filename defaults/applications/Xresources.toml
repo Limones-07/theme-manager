@@ -3,8 +3,8 @@ desktop_entry = false
 name = "Xresources"
 
 
-[[installation_check]]
-type = "which"
+[[check_procedures]]
+type = "command_exists"
 command = "xrdb"
 
 
@@ -47,10 +47,10 @@ id = "target"
 type = "path"
 
 [[enabling_procedures.requires]]
-id = "source"
+id = "directory"
 type = "path"
 
 [enabling_procedures.function]
 type = "create_symlink"
-source = "@source"
 target = "@target"
+directory = "@directory"
