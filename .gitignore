@@ -1,5 +1,6 @@
 .vscode
 .venv
+test.py
 __pycache__
 docs/build
 theme_manager.egg-info

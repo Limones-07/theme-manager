@@ -14,7 +14,10 @@ release = '1.0a'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinxcontrib.autoprogram']
+extensions = [
+    'sphinxcontrib.autoprogram',
+    'sphinx.ext.intersphinx'
+]
 
 templates_path = ['_templates']
 exclude_patterns = []

@@ -48,18 +48,18 @@ class Logger():
             return
         self.stderr.write('[WARNING] ' + message + '\n')
 
-    def error(self, message: str) -> None:
-        # Used to warn about a critical problem that prevent the normal execution of the program.
-        # The program should be stopped after this log.
-        # Verbosity level: -1
-        self.stderr.write('[ERROR] ' + message + '\n')
+    # def error(self, message: str) -> None:
+    #     # Used to warn about a critical problem that prevent the normal execution of the program.
+    #     # The program should be stopped after this log.
+    #     # Verbosity level: -1
+    #     self.stderr.write('[ERROR] ' + message + '\n')
 
 
 def create(verbosity: int = DEFAULT_VERBOSITY) -> Logger:
     global logger
     try:
         if logger:
-            logger.debug(f'The logger is being recreated. Setting verbosity to {verbosity}.')
+            logger.info(f'The logger is being recreated. Setting verbosity to {verbosity}.')
     except NameError:
         pass
     logger = Logger(verbosity)

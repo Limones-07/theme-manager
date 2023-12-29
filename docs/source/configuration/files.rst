@@ -11,7 +11,10 @@ and `/usr/share`, in this order.
 
 This order is also the order of priority, so, for example, if two configuration files 
 are found with the **same name** at `$HOME/.config` and at `/usr/local/share`, 
-the first one overrides the second. 
+the first one overrides the second. On the other hand, `theme-manager` will combine
+what it finds in all three directories, allowing, for example, a theme configuration
+on `/usr/share` to use an application configured at `$HOME/.config` and a script
+at `/usr/local/share`.
 
 User-made configuration (even if automatically generated) should be stored in 
 `$XDG_CONFIG_HOME` and package-made configuration should be stored in `$XDG_DATA_DIRS`.
@@ -27,21 +30,28 @@ theme-manager.toml
     .. warning:: 
         It doesn't have a use for now, might be removed.
 
+applications/
+    The directory that contains the application-specific configuration.
+    It should contain only `TOML` or `JSON` files. 
+    
+    See the :ref:`application configuration <configuration_applications_start>`
+    section for more details and how to write these configurations.
+
 themes/
     The directory that contains the themes and their configuration. 
-    Should contain a `themes.toml` file and the themes' directories, 
-    each with their own `theme.toml` file. The themes may have a `theme.json`
-    configuration file instead, but never both. 
+    It should have the themes' directories, each with their own `theme.toml` file. 
+    The themes may have a `theme.json` configuration file instead, but never both. 
     
     See the :ref:`theme configuration <configuration_themes_start>` section
     for more details and how to write these configurations.
 
-applications/
-    The directory that contains the application-specific configuration.
-    Should contain just `TOML` or `JSON` files. 
-    
-    See the :ref:`application configuration <configuration_applications_start>`
-    section for more details and how to write these configurations.
+scripts/
+    The directory that contains the scripts used in the configuration files. It should
+    have three directories: `enabling_procedures`, `check_procedures` and `references`.
+    All of them should contain only `.py` files.
+
+    See the :ref:`scripts <configuration_scripts_start>` section for more details and
+    how to write these scripts.
 
 :ref:`This example <example_theme_manager_file_tree>` should help you understand how the `theme-manager`
 file tree shoud look like.

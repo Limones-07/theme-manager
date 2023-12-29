@@ -49,6 +49,7 @@ Current features
 TODO
 ----
 
+* AUR package.
 * Apply a theme globally.
 * Manage each application individually.
 * Write the default configurations.
@@ -61,3 +62,4 @@ TODO
 
 .. _GitHub repository: https://github.com/Limones-07/theme-manager
 .. _Eww: https://github.com/elkowar/eww
+.. _07limones@gmail.com: mailto:07limones@gmail.com

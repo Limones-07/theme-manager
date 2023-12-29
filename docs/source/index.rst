@@ -14,4 +14,3 @@ effortlessly managing and applying system themes.
     usage/usage
     configuration/configuration
     examples/examples
-
