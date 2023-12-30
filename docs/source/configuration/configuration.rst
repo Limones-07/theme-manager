@@ -33,7 +33,6 @@ See the :ref:`references <configuration_references_start>` section to know what 
 The following sections will teach you where to put these files and how to write them.
 
 .. toctree:: 
-    :hidden:
 
     files
     applications
