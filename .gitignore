@@ -1,6 +1,10 @@
 .vscode
 .venv
-test.py
+init.sh
 __pycache__
 docs/build
+Dockerfile
+testing-args
+.dockerignore
+defaults/themes
 theme_manager.egg-info

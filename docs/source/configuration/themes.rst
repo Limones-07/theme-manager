@@ -28,9 +28,9 @@ tables `check_procedures` and the array of tables `applications`.
     array defines one check procedure, and must be composed of, at least, two entries: 
     `required_by` and `type`. Depending on the `type` value, more entries are required.
 
-    `required_by`: ``string`` || ``false``
+    `required_by`: ``string``
         Specifies which application needs this check to succeed. If it isn't the application involved
-        with the running `theme-manager` operation or the passed value is `false`, the check will be skipped.
+        with the running `theme-manager` operation or the passed string is empty, the check will be skipped.
 
     `type`: ``string``
         Determines which check procedure `theme-manager` will execute to verify the installation of the application. 
@@ -70,9 +70,9 @@ objects `check_procedures` and the array of objects `applications`.
     the array defines one check procedure, and must be composed of, at least, two entries: 
     `required_by` and `type`. Depending on the `type` value, more entries are required.
 
-    `required_by`: ``string`` || ``null``
+    `required_by`: ``string``
         Specifies which application needs this check to succeed. If it isn't the application involved
-        with the running `theme-manager` operation or the passed value is `null`, the check will be skipped.
+        with the running `theme-manager` operation or the passed string is empty, the check will be skipped.
 
     `type`: ``string``
         Determines which check procedure `theme-manager` will execute to verify the installation of the application. 

@@ -1,16 +1,21 @@
 from .. import logging_utils
-from ..parsers import cli_parser, theme_parser
+from ..utils import configuration_handler
+from ..utils import cli_parser
 
 
 def main():
     
-    # Parse operation and start the logger
-    operation = cli_parser.parse_request()
-    logger = logging_utils.create(operation.pop(2))
+    # Parse operation and initialize some important objects
+    operation, output_format, verbosity = cli_parser.parse_operation()
+
+    logger = logging_utils.create(verbosity)
     
     logger.debug('Starting main logic.', __name__)
-    themes = theme_parser.parse_themes()
+    logger.debug(f'Operation instruction: {operation}', __name__)
+    logger.debug(f'Output format: {output_format}', __name__)
 
+    config_handler = configuration_handler.create()
+    
 
 if __name__ == "__main__":
     main()

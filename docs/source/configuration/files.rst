@@ -7,9 +7,9 @@ Where to place directories and files
 environment variables `$XDG_CONFIG_HOME` and `$XDG_DATA_DIRS` as defined by
 the `XDG Base Directory Specification`_ [#f1]_. If the variables are not defined, 
 `theme-manager` will look for its directories on `$HOME/.config`, `/usr/local/share` 
-and `/usr/share`, in this order. 
+and `/usr/share`. 
 
-This order is also the order of priority, so, for example, if two configuration files 
+This order is the order of priority, so, for example, if two configuration files 
 are found with the **same name** at `$HOME/.config` and at `/usr/local/share`, 
 the first one overrides the second. On the other hand, `theme-manager` will combine
 what it finds in all three directories, allowing, for example, a theme configuration
@@ -18,6 +18,12 @@ at `/usr/local/share`.
 
 User-made configuration (even if automatically generated) should be stored in 
 `$XDG_CONFIG_HOME` and package-made configuration should be stored in `$XDG_DATA_DIRS`.
+
+`theme-manager` will also use directories at `$XDG_STATE_HOME` and `$XDG_DATA_HOME`
+to store the current state of the application and the generated presets respectively.
+If the variables are not defined, `theme-manager` will use `$HOME/.local/state` and
+`$HOME/.local/share` as defaults. You don't need to worry about these directories,
+as they are for internal use of `theme-manager`.
 
 :ref:`This example <example_root_directory_file_tree>` should help you understand 
 how the root file tree shoud look like. 
@@ -32,15 +38,18 @@ theme-manager.toml
 
 applications/
     The directory that contains the application-specific configuration.
-    It should contain only `TOML` or `JSON` files. 
+    It should contain only `TOML` or `JSON` files. **Remember to include the
+    .toml or .json extension**, as `theme-manager` won't recognise the files
+    without them.
     
     See the :ref:`application configuration <configuration_applications_start>`
     section for more details and how to write these configurations.
 
 themes/
     The directory that contains the themes and their configuration. 
-    It should have the themes' directories, each with their own `theme.toml` file. 
-    The themes may have a `theme.json` configuration file instead, but never both. 
+    It should have the themes' directories, each with their own `theme.toml` 
+    or `theme.json` file. **Remember to include the .toml or .json extension**, 
+    as `theme-manager` won't recognise the files without them. 
     
     See the :ref:`theme configuration <configuration_themes_start>` section
     for more details and how to write these configurations.

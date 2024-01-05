@@ -53,8 +53,8 @@ TODO
 * Apply a theme globally.
 * Manage each application individually.
 * Write the default configurations.
+* Add presets.
 * Create a configuration file interactively.
-* Basically everything.
 
 .. rubric:: Footnotes
 .. [#f1] `GitHub repository`_: `https://github.com/Limones-07/theme-manager <GitHub repository>`_

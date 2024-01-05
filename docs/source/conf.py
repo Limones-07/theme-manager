@@ -15,8 +15,9 @@ release = '1.0a'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'sphinxcontrib.autoprogram',
-    'sphinx.ext.intersphinx'
+    # 'sphinxcontrib.autoprogram',
+    # 'sphinxarg.ext',
+    # 'sphinx.ext.intersphinx'
 ]
 
 templates_path = ['_templates']

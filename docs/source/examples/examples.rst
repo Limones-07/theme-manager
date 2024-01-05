@@ -320,7 +320,7 @@ This is how a script for may look like (exaple of a script for a reference):
 
     import os
 
-    def main(ref_type: type, \*\*kwargs):
+    def main(ref_type: type, **kwargs):
         """Gets the API key from the environment variable API_KEY."""
         print(kwargs)
         api_key = os.getenv('API_KEY')

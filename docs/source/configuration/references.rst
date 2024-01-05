@@ -8,7 +8,9 @@ References are the variables `theme-manager` understands. For every string that
 which are prefixed by an at sign (`@`). Then, `theme-manager` replaces the reference 
 with the value it represents. So, for example, if the string `"@H/.config/theme-manager"`
 is given in any configuration entry, `theme-manager` will expand it to
-`/home/user/.config/theme-manager`. This will happen in **any** string. 
+`/home/user/.config/theme-manager`. This will happen in **any** string **except for
+strings that define the id/name of something, for example, an enabling procedure, an application
+or a theme.**. 
 
 .. note:: 
     When a string is passed containing **only** a reference, `theme-manager` will change

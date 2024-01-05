@@ -38,7 +38,7 @@ Every script should define one thing at the global scope of the code: a function
     This function is what `theme-manager` will call to do whatever is needed. Before calling this function, `theme-manager`
     overrides the `print` function with one from `theme-manager`'s logging utility, so it doesn't bypass the verbosity level.
     Everything that the script tries to print will be printed as a debug message. This function should also not depend on user
-    input, as the `input` function might be overridden with `None` if the user requires no user interaction.
+    input, as the `input` function will be overridden with `None`.
 
     All `main` functions should expect five keyword arguments: `theme-directory`, `user-home`, `xdg-config-home`, `xdg-data-dirs`
     and `Error`.
@@ -68,7 +68,7 @@ Every script should define one thing at the global scope of the code: a function
             The exit code `theme-manager` should use. It's highly recommended to follow what's specified at `/usr/include/sysexits.h`.
     
     If the script is an enabling procedure, no positional arguments are required, `main`'s return value will be ignored and `theme-manager` 
-    will proceed with it's operation after the function's executioncassuming the theme is already enabled for the application that uses 
+    will proceed with it's operation after the function's execution assuming the theme is already enabled for the application that uses 
     this script.
     
     If the script is a check procedure, no positional arguments are required and `theme-manager` expects a boolean return value. 

@@ -4,7 +4,7 @@ import sys
 
 from ..envs import DEFAULT_VERBOSITY
 
-class Logger():
+class _Logger():
     """Based on the verbosity level, logs to stdout and stderr."""
 
     def __init__(self, verbosity: int = DEFAULT_VERBOSITY) -> None:
@@ -17,15 +17,14 @@ class Logger():
         else:
             self.verbosity = verbosity
         self.debug(f'Logger created with verbosity level at {verbosity}!', __name__)
+        self.debug(f'theme-manager called with command: {" ".join(sys.argv)}', __name__)
     
     def debug(self, message: str, module: str) -> None:
         # Used for extreme verbosity / debug.
         # Verbosity level: 2
         if self.verbosity < 2:
             return
-        if module:
-            module = ':' + module
-        self.stdout.write(f'[DEBUG{module}] ' + message + '\n')
+        self.stdout.write(f'[DEBUG:{module}] ' + message + '\n')
 
     def info(self, message: str) -> None:
         # Used to track the program flow.
@@ -48,29 +47,32 @@ class Logger():
             return
         self.stderr.write('[WARNING] ' + message + '\n')
 
-    # def error(self, message: str) -> None:
-    #     # Used to warn about a critical problem that prevent the normal execution of the program.
-    #     # The program should be stopped after this log.
-    #     # Verbosity level: -1
-    #     self.stderr.write('[ERROR] ' + message + '\n')
+    def error(self, message: str, error_code: int, module: str) -> None:
+        # Used to warn about a critical problem that prevent the normal execution of the program.
+        # The program will be stopped after this log.
+        # Verbosity level: -1
+        self.stderr.write(f'[ERROR:{module}] ' + message + '\n')
+        self.stderr.write(f'[EEROR:{module}] Ending theme-manager\'s execution.\n')
+        exit(error_code)
 
 
-def create(verbosity: int = DEFAULT_VERBOSITY) -> Logger:
+def create(verbosity: int = DEFAULT_VERBOSITY) -> _Logger:
     global logger
     try:
         if logger:
-            logger.info(f'The logger is being recreated. Setting verbosity to {verbosity}.')
+            logger.warn(f'Tried to recreate the logger. Review {__name__}\'s code.')
+            return logger
     except NameError:
         pass
-    logger = Logger(verbosity)
+    logger = _Logger(verbosity)
     return logger
 
 
-def get() -> Logger:
+def get() -> _Logger:
     global logger
     try:
         return logger
     except NameError:
-        logger = Logger()
+        logger = _Logger()
         logger.debug(f'Logger wasn\'t created explicitly. Verbosity level set to default ({DEFAULT_VERBOSITY}).')
         return logger
