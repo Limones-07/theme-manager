@@ -6,6 +6,8 @@ Configuring applications
 To configure an application, you need a `TOML` or a `JSON` file. The recommended file type to configure manually
 is `TOML` because of its simplicity, but there is no difference between the two aside from the syntax.
 Leave the `JSON` files for automatically generated configuration (unless you want to use `JSON`, it doesn't really matter).
+Be aware that, if there are more than one configuration files for the same application or with the same name (ignoring the
+extension), they all are going to be ignored.
 
 .. note:: 
     An example of what's described in this section can be found 
@@ -14,21 +16,11 @@ Leave the `JSON` files for automatically generated configuration (unless you wan
 Using `TOML` files
 ------------------
 
-You need to define three things on the root of the document: the table `id`, the array of tables `check_procedures`
+You need to define three things on the root of the document: the string `name`, the array of tables `check_procedures`
 and the array of tables `enabling_procedures`.
 
-`id`: ``table``
-    Defines how the application will be identified. It requires two entries: `desktop_entry` and `name`. 
-
-    `desktop_entry`: ``string`` || ``false``
-        Specifies the `.desktop` file corresponding to the application. It will be used to determine the name of the
-        application based on the desktop file using the `Name` entry as defined by the 
-        `XDG Desktop Entry Specification`_ [#f1]_. If `theme-manager` cannot parse the name from the file or the string
-        passed is not a valid path, it will use the `name` entry instead. If you want to use the `name` entry instead of 
-        the desktop entry on purpouse, pass ``false`` to this entry.
-
-    `name`: ``string``
-        Specifies the fallback name used by `theme-manager` to identify this application if it can't use the desktop entry.
+`name`: ``string``
+    Specifies the name used by `theme-manager` to identify this application.
 
 `check_procedures`: ``array of tables``
     Specifies how `theme-manager` should verify the installation of the application. Each table inside the array
@@ -77,7 +69,7 @@ and the array of tables `enabling_procedures`.
                     creates the link as the file specified.
 
             `shell`:
-                Runs a shell command. It requires two additional entries: the string `command`
+                Runs a shell command. Requires two additional entries: the string `command`
                 and the array `args`.
 
                 `command`: ``string``
@@ -91,29 +83,25 @@ and the array of tables `enabling_procedures`.
             `script`:
                 Used when none of the existing functions meet your requirements. It allows you to write a Python script
                 and use it as a function. See the section for :ref:`scripts <configuration_scripts_start>` too learn what
-                you need to use one. Requires one additional entry: `name`.
+                you need to use one. Requires three additional entries: the string `name`, the array `args` and the table `kwargs`.
 
                 `name`: ``string``
                     The name of the script without the `.py` extension. 
 
+                `args`: ``array``
+                    The positional arguments the script might need (accessible to the script via ``*args``). 
+
+                `kwargs`: ``table``
+                    The keyword arguments the script might need (accessible to the script via ``**kwargs``).
+
 Using `JSON` files
 ------------------
 
-You need to define three things on the root of the document: the object `id` and the arrays `check_procedures`
+You need to define three things on the root of the document: the string `name` and the arrays `check_procedures`
 and `enabling_procedures`.
 
-`id`: ``object``
-    Defines how the application will be identified. It requires two entries: `desktop_entry` and `name`. 
-
-    `desktop_entry`: ``string`` || ``null``
-        Specifies the `.desktop` file corresponding to the application. It will be used to determine the name of the
-        application based on the desktop file using the `Name` entry as defined by the 
-        `XDG Desktop Entry Specification`_ [#f1]_. If `theme-manager` cannot parse the name from the file or the string
-        passed is not a valid path, it will use the `name` entry instead. If you want to use the `name` entry instead of
-        the desktop entry on purpouse, pass ``null`` to this entry.
-
-    `name`: ``string``
-        Specifies the fallback name used by `theme-manager` to identify this application if it can't use the desktop entry.
+`name`: ``string``
+    Specifies the name used by `theme-manager` to identify this application.
 
 `check_procedures`: ``array of objects``
     Specifies how `theme-manager` should verify the installation of the application. Each object inside the array
@@ -162,7 +150,7 @@ and `enabling_procedures`.
                     creates the link as the file specified.
 
             `shell`:
-                Runs a shell command. It requires two additional entries: the string `command`
+                Runs a shell command. Requires two additional entries: the string `command`
                 and the array `args`.
 
                 `command`: ``string``
@@ -176,13 +164,19 @@ and `enabling_procedures`.
             `script`:
                 Used when none of the existing functions meet your requirements. It allows you to write a Python script
                 and use it as a function. See the section for :ref:`scripts <configuration_scripts_start>` too learn what
-                you need to use one. Requires one additional entry: `name`.
+                you need to use one. Requires three additional entries: the string `name`, the array `args` and the object `kwargs`.
 
                 `name`: ``string``
                     The name of the script without the `.py` extension. 
+                
+                `args`: ``array``
+                    The positional arguments the script might need (accessible to the script via ``*args``). 
 
-.. rubric:: Footnotes
-.. [#f1] See the `XDG Desktop Entry Specification`_ for more info: 
-    (`https://specifications.freedesktop.org/desktop-entry-spec/latest/index.html <XDG Desktop Entry Specification>`_).
+                `kwargs`: ``object``
+                    The keyword arguments the script might need (accessible to the script via ``**kwargs``).
 
-.. _`XDG Desktop Entry Specification`: https://specifications.freedesktop.org/desktop-entry-spec/latest/index.html
+.. .. rubric:: Footnotes
+.. .. [#f1] See the `XDG Desktop Entry Specification`_ for more info: 
+..     (`https://specifications.freedesktop.org/desktop-entry-spec/latest/index.html <XDG Desktop Entry Specification>`_).
+
+.. .. _`XDG Desktop Entry Specification`: https://specifications.freedesktop.org/desktop-entry-spec/latest/index.html

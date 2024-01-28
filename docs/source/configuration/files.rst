@@ -5,16 +5,18 @@ Where to place directories and files
 
 `theme-manager` looks for same named directories on the folders specified by the 
 environment variables `$XDG_CONFIG_HOME` and `$XDG_DATA_DIRS` as defined by
-the `XDG Base Directory Specification`_ [#f1]_. If the variables are not defined, 
-`theme-manager` will look for its directories on `$HOME/.config`, `/usr/local/share` 
-and `/usr/share`. 
+the `XDG Base Directory Specification`_ [#f1]_, in the order they are in the variables,
+checking the XDG config home first, then the XDG data directories. If the variables are 
+not defined, `theme-manager` will look for its directories on `$HOME/.config`, 
+`/usr/local/share` and `/usr/share`. 
 
-This order is the order of priority, so, for example, if two configuration files 
-are found with the **same name** at `$HOME/.config` and at `/usr/local/share`, 
+To deal with two configurations with the same name, `theme-manager` will use the first
+one it encounters, ignoring the rest. So, for example, if two configuration files 
+are found for the same theme at `$HOME/.config` and at `/usr/local/share`, 
 the first one overrides the second. On the other hand, `theme-manager` will combine
 what it finds in all three directories, allowing, for example, a theme configuration
 on `/usr/share` to use an application configured at `$HOME/.config` and a script
-at `/usr/local/share`.
+at `/usr/local/share`. The same happens with scripts.
 
 User-made configuration (even if automatically generated) should be stored in 
 `$XDG_CONFIG_HOME` and package-made configuration should be stored in `$XDG_DATA_DIRS`.
@@ -40,7 +42,7 @@ applications/
     The directory that contains the application-specific configuration.
     It should contain only `TOML` or `JSON` files. **Remember to include the
     .toml or .json extension**, as `theme-manager` won't recognise the files
-    without them.
+    without them. 
     
     See the :ref:`application configuration <configuration_applications_start>`
     section for more details and how to write these configurations.

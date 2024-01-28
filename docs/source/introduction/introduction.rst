@@ -49,11 +49,7 @@ Current features
 TODO
 ----
 
-* AUR package.
-* Apply a theme globally.
-* Manage each application individually.
-* Write the default configurations.
-* Add presets.
+* Implement presets.
 * Create a configuration file interactively.
 
 .. rubric:: Footnotes

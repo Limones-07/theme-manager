@@ -1,1 +1,0 @@
-"""Defines path utilitaries for resolving directories based on environment variables and the XDG Base Directory Specification."""

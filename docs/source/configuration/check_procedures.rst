@@ -32,11 +32,14 @@ existing procedures and how to use them.
         the check procedure will succeed.
     
     `value`: ``number`` || ``string`` || ``true`` || ``false`` || ``null``
-        Determines what the entry value should be.
+        Determines what the entry value should be. 
+
+        .. note:: 
+            Because of `TOML` limitations, you can only specify the ``null`` value from a `JSON` configuration file.
 
 `command_exists`:
-    Looks for a command on the directories specified by the `$PATH` environment variable, similarly to the
-    `which` shell command. If it exists, the check procedure succeeds. Requires one additional entry: `command`.
+    Checks if a command exists, similarly to the `which` shell command. If it exists, the check procedure succeeds. 
+    Requires one additional entry: `command`.
 
     `command`: ``string``
         Determines which command should be searched for.
@@ -74,7 +77,13 @@ existing procedures and how to use them.
 `script`:
     This is used when none of the existing procedures meet your requirements. It allows you to write a Python script
     and use it as a check procedure. See the section for :ref:`scripts <configuration_scripts_start>` too learn what
-    you need to use one. Requires one additional entry: `name`.
+    you need to use one. Requires three additional entries: `name`, `args` and `kwargs`.
 
     `name`: ``string``
         The name of the script without the `.py` extension. 
+
+    `args`: ``array``
+        The positional arguments the script might need (accessible to the script via ``*args``). 
+
+    `kwargs`: ``object``
+        The keyword arguments the script might need (accessible to the script via ``**kwargs``).

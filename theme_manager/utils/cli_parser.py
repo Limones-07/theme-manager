@@ -1,6 +1,5 @@
 """Based on command-line options, parses the operation specified by the user for the program to execute."""
 
-# import sys
 import argparse
 
 from ..envs import DEFAULT_VERBOSITY, EX_USAGE
@@ -109,7 +108,7 @@ def _build_parser() -> argparse.ArgumentParser:
 
     verbosity_group = parser.add_mutually_exclusive_group()
     verbosity_group.add_argument('-v', '--verbose', action='count', default=DEFAULT_VERBOSITY, dest='verbosity',
-                        help='the program will be more verbose on its operation (if used twice, will print debug messages)')
+                        help='the program will be more verbose on its operation (when used twice, it will print existing debug messages)')
     verbosity_group.add_argument('-q', '--quiet', action='store_true', dest='quiet',
                                  help='the program won\'t print anything to stdout, but will still print to stderr in case of errors '
                                       '(recommended when using theme-manager in a script)')

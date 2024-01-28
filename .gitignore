@@ -4,7 +4,7 @@ init.sh
 __pycache__
 docs/build
 Dockerfile
-testing-args
 .dockerignore
 defaults/themes
+defaults/scripts
 theme_manager.egg-info

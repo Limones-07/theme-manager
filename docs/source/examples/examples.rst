@@ -8,7 +8,7 @@ Examples
 Example: root directory file tree
 ---------------------------------
 
-Considering the default values for the XDG data directories::
+Considering the default values for the XDG configuration and data directories::
   
     /
     ├─home
@@ -85,8 +85,6 @@ This example is one of the default configurations shipped with the program.
 
 `Xresources.toml`::
 
-    [id]
-    desktop_entry = false
     name = "Xresources"
 
 
@@ -147,10 +145,7 @@ This example is one of the default configurations shipped with the program.
 An equivalent configuration written in `JSON` would look like this::
 
     {
-      "id": {
-        "desktop_entry": false,
-        "name": "Xresources"
-      },
+      "name": "Xresources",
       "check_procedures": [
         {
           "type": "command_exists",
@@ -312,7 +307,7 @@ An equivalent configuration written in `JSON` would look like this::
 Example: script
 ---------------
 
-This is how a script for may look like (exaple of a script for a reference):
+This is how a simple script for may look like (exaple of a script for a reference):
 
 .. highlight:: python
 
@@ -320,20 +315,16 @@ This is how a script for may look like (exaple of a script for a reference):
 
     import os
 
-    def main(ref_type: type, **kwargs):
+    def main(logger):
         """Gets the API key from the environment variable API_KEY."""
-        print(kwargs)
+        
         api_key = os.getenv('API_KEY')
-        
-        if not api_key:
-            return kwargs['Error']('The environment variable "API_KEY" doesn\'t exist.', 65)
+        logger.debug(f'$API_KEY value: {api_key}.', __name__)
 
-        try:
-            api_key = ref_type(api_key)
-        except (TypeError, ValueError):
-            return kwargs['Error'](f'The environment variable "API_KEY" cannot be converted to {ref_type.__name__}.', 65)
+        if not api_key:
+            return logger.error('The environment variable "API_KEY" doesn\'t exist.', 65, __name__)
         
-        print(f'Got the API key as {ref_type.__name__}. Returning {api_key}.')
+        logger.info(f'Got the API key. ')
 
         return api_key
 

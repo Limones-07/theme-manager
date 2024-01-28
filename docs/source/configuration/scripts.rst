@@ -35,52 +35,76 @@ called `references`. Inside them is where the `.py` files should be stored.
 Every script should define one thing at the global scope of the code: a function called `main`.
 
 `main`: ``function``
-    This function is what `theme-manager` will call to do whatever is needed. Before calling this function, `theme-manager`
-    overrides the `print` function with one from `theme-manager`'s logging utility, so it doesn't bypass the verbosity level.
-    Everything that the script tries to print will be printed as a debug message. This function should also not depend on user
-    input, as the `input` function will be overridden with `None`.
+    This function is what `theme-manager` will call to do whatever is needed. 
 
-    All `main` functions should expect five keyword arguments: `theme-directory`, `user-home`, `xdg-config-home`, `xdg-data-dirs`
-    and `Error`.
-    Positional arguments and expected return value types are dependant on the script's purpose.
+    All `main` functions should expect the keyword argument `logger`. Aditional arguments and expected return value types
+    are dependant on the script's purpose.
 
-    `theme-directory`: ``string``
-        The absolute path to the directory of the theme that needs to be enabled.
-    
-    `user-home`: ``string``
-        The absolute path to the user's home folder.
-
-    `xdg-config-home`: ``string``
-        The absolute path to the XDG config home as defined by the `XDG Base Directory Specification`.
-    
-    `xdg-data-dirs`: ``string``
-        The absolute paths to the XDG data directories separatad by colons (`:`) as defined by the `XDG Base Directory Specification`.
-
-    `Error`: ``class``
-        A class made to transmit information related to an error that might occur during the execution of the function. If something
-        goes wrong in the script, `main` **must** return an object of this class instead of raising an exception. `Error`'s constructor 
-        expects two arguments: the string `message` and the integer `exit_code`.
+    `logger`: ``object``
+        An object made to print information to `stdout` or `stderr` depending on the program's verbosity level. This object contains
+        four methods that should be used instead of the builtin `print`, each one with their specific use cases: `debug`, `info`, `warn`
+        and `error`. From the four, only `error` bypasses the `\-\-quiet` option. All of them require the argument `message`.
 
         `message`: ``string``
-            The message to be printed as the error message.
-        
-        `exit_code`: ``int``
-            The exit code `theme-manager` should use. It's highly recommended to follow what's specified at `/usr/include/sysexits.h`.
+            The message that should be printed.
+
+        `debug`: ``function``
+            Used to print information that will be useful to solve any problems a user might have using the script. The messages sent
+            using this method will only be printed if the `\-\-verbose` option is used twice. Requires the additional argument `module`.
+
+            `module`: ``string``
+                The name of the script. It's recommended to use the `__name__` variable.
+
+            The messages sent using this method will be printed following the structure::
+
+                [DEBUG:{module}] {message}
+
+        `info`: ``function``
+            Used to print information that allows the user to keep track of what the script is doing. The messages sent using this method will
+            only be printed if the `\-\-verbose` option is used, at least, once. 
+
+            The messages sent using this method will be printed following the structure::
+
+                [INFO] {message}
+
+        `warn`: ``function``
+            Used to print warnings to `stderr` about things that aren't normal and might be unintentional or wrong, but don't prevent the 
+            program from doing what it needs to do.
+
+            The messages sent using this method will be printed following the structure::
+
+                [WARNING] {message}
+
+        `error`: ``function``
+            Used to print errors to `stderr` and stop `theme-manager`'s execution. Requires the additional arguments `exit_code` and `module`.
+
+            `exit_code`: ``integer``
+                The exit code `theme-manager` should use.
+            
+            `module`: ``string``
+                The name of the script. It's recommended to use the `__name__` variable.
+
+            .. highlight:: none
+            
+            The messages sent using this method will be printed following the structure::
+            
+                [ERROR:{module}] {message}
+                [ERROR] Ending theme-manager's execution.
+            
+            **USE THIS METHOD ONLY WHEN EXTREMELY NECESSARY**. Instead, try to handle the problem and use the `warn` method.
+
+    If the script is an enabling procedure, `main` should expect additional positional arguments and keyword arguments using ``*args`` and ``**kwargs``, 
+    its return value will be ignored and `theme-manager` will proceed with it's operation after the function's execution assuming the theme is already 
+    enabled for the application that uses this script.
     
-    If the script is an enabling procedure, no positional arguments are required, `main`'s return value will be ignored and `theme-manager` 
-    will proceed with it's operation after the function's execution assuming the theme is already enabled for the application that uses 
-    this script.
-    
-    If the script is a check procedure, no positional arguments are required and `theme-manager` expects a boolean return value. 
-    If `main` returns `True`, the check succeeds, but if it returns `False`, the check fails. 
+    If the script is a check procedure, `main` should expect additional positional arguments and keyword arguments using ``*args`` and ``**kwargs`` and
+    `theme-manager` expects a boolean return value. If `main` returns `True`, the check succeeds, but if it returns `False`, the check fails.
 
-    If the script is a reference, the positional argument `ref_type` is required and `theme-manager` expects a `ref_type` return value.
-    After `theme-manager` verifies if the returned value if actually from the expected type, the reference will be replaced with whatever 
-    is the return value.
+    If the script is a reference, `main` should expect additional positional arguments and keywork arguments using ``*args`` and ``**kwargs``. 
+    The reference that calls the script will be replaced with it's return value.
 
-    `ref_type`: ``type``
-        The type of the reference. Its possible values are listed at the :ref:`references section <configuration_references_start>`.
-
+    .. `ref_type`: ``type``
+    ..     The type of the reference. Its possible values are listed at the :ref:`references section <configuration_references_start>`.
 
 .. rubric:: Footnotes
 .. [#f1] Python's documentation of `the import system`_: `https://docs.python.org/3/reference/import.html <the import system>`_

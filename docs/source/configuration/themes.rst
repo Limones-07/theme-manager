@@ -6,6 +6,7 @@ Configuring themes
 To configure a theme, you need a `TOML` or a `JSON` file. The recommended file type to configure manually
 is `TOML` because of its simplicity, but there is no difference between the two aside from the syntax.
 Leave the `JSON` files for automatically generated configuration (unless you want to use `JSON`, it doesn't really matter).
+Be aware that, if there are more than one configuration files on the same directory, they all are going to be ignored.
 
 .. note:: 
     An example of what's described in this section can be found 
@@ -25,12 +26,8 @@ tables `check_procedures` and the array of tables `applications`.
     
 `check_procedures`: ``array of tables``
     Specifies how `theme-manager` should verify the installation of the theme. Each table inside the 
-    array defines one check procedure, and must be composed of, at least, two entries: 
-    `required_by` and `type`. Depending on the `type` value, more entries are required.
-
-    `required_by`: ``string``
-        Specifies which application needs this check to succeed. If it isn't the application involved
-        with the running `theme-manager` operation or the passed string is empty, the check will be skipped.
+    array defines one check procedure, and must be composed of, at least, the entry `type`. Depending on its value, 
+    more entries are required.
 
     `type`: ``string``
         Determines which check procedure `theme-manager` will execute to verify the installation of the application. 
@@ -42,7 +39,7 @@ tables `check_procedures` and the array of tables `applications`.
 
     `id`: ``string``
         Specifies the name of the application this table is configuring. It must match the name of a configured
-        application, being the name parsed from the desktop file or explicitly defined on the `name` entry.
+        application.
     
     `procedure`: ``table``
         Specifies what `theme-manager` should do to enable this theme. Requires, at least, the string `id`.
@@ -84,7 +81,7 @@ objects `check_procedures` and the array of objects `applications`.
 
     `id`: ``string``
         Specifies the name of the application this table is configuring. It must match the name of a configured
-        application, being the name parsed from the desktop file or explicitly defined on the `name` entry.
+        application.
     
     `procedure`: ``object``
         Specifies what `theme-manager` should do to enable this theme. Requires, at least, the string `id`.
